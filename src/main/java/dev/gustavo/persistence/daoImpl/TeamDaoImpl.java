@@ -1,13 +1,14 @@
 package dev.gustavo.persistence.daoImpl;
 
-import dev.gustavo.model.dtos.PlayerDto;
-import dev.gustavo.model.dtos.TeamDto;
+import dev.gustavo.model.team.dto.TeamDto;
 import dev.gustavo.persistence.dao.TeamDao;
 
 import java.util.List;
 import java.util.Optional;
 
 public class TeamDaoImpl implements TeamDao {
+
+
     @Override
     public List<TeamDto> findAll() {
         return List.of();
@@ -19,22 +20,12 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public void addPlayer(PlayerDto dto) {
-
-    }
-
-    @Override
-    public void removePlayer(PlayerDto dto) {
-
-    }
-
-    @Override
-    public void substitute(PlayerDto substitute, PlayerDto beginner) {
-
-    }
-
-    @Override
     public void save(TeamDto dto) {
+
+    }
+
+    @Override
+    public void update(TeamDto dto) {
 
     }
 
@@ -42,5 +33,4 @@ public class TeamDaoImpl implements TeamDao {
     public void delete(TeamDto dto) {
 
     }
-
 }

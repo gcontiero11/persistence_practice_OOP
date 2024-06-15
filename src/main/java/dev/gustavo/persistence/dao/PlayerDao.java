@@ -1,6 +1,6 @@
 package dev.gustavo.persistence.dao;
 
-import dev.gustavo.model.dtos.PlayerDto;
+import dev.gustavo.model.player.dto.PlayerDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +11,9 @@ public interface PlayerDao {
 
     Optional<PlayerDto> findById(UUID id);
 
+    void save(PlayerDto dto);
 
+    void update(PlayerDto dto);
 
-    void save(PlayerDto player);
-
-    void delete(PlayerDto player);
+    void delete(PlayerDto dto);
 }

@@ -1,6 +1,6 @@
 package dev.gustavo.persistence.daoImpl;
 
-import dev.gustavo.model.dtos.PlayerDto;
+import dev.gustavo.model.player.dto.PlayerDto;
 import dev.gustavo.persistence.dao.PlayerDao;
 
 import java.util.List;
@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerDaoImpl implements PlayerDao {
-
     @Override
     public List<PlayerDto> findAll() {
         return List.of();
@@ -20,12 +19,17 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void save(PlayerDto player) {
+    public void save(PlayerDto dto) {
 
     }
 
     @Override
-    public void delete(PlayerDto player) {
+    public void update(PlayerDto dto) {
+
+    }
+
+    @Override
+    public void delete(PlayerDto dto) {
 
     }
 }

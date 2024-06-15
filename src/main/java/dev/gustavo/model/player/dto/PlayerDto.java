@@ -1,6 +1,6 @@
-package dev.gustavo.model.dtos;
+package dev.gustavo.model.player.dto;
 
-import dev.gustavo.model.Team;
+import dev.gustavo.model.team.entity.Team;
 
 import java.util.UUID;
 

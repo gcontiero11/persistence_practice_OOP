@@ -1,6 +1,7 @@
-package dev.gustavo.model;
+package dev.gustavo.model.player.entity;
 
-import dev.gustavo.model.dtos.PlayerDto;
+import dev.gustavo.model.player.dto.PlayerDto;
+import dev.gustavo.model.team.entity.Team;
 
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class Player {
     private String position;
     private boolean isFielded;
 
-    public Player(String name, int number, String position, UUID uuid) {
+    public Player(String name, int number, String position) {
         this(UUID.randomUUID(), null, name, number, position, false);
     }
 
