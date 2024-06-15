@@ -9,10 +9,15 @@ import java.sql.Statement;
 
 public class DataBaseBuilder {
 
-    public void createDatabaseIfIsMissing(){
-        if (isDataBaseMissing()){
-            deletePreviousDataBase();
+    public void cleanDataBase() {
+        deletePreviousDataBase();
+        createNewDataBase();
+    }
+
+    public void createDatabaseIfIsMissing() {
+        if (isDataBaseMissing()) {
             createNewDataBase();
+            System.out.println("DataBase Created");
         }
     }
 
@@ -21,7 +26,7 @@ public class DataBaseBuilder {
     }
 
     private void createNewDataBase() {
-        try(Statement statement = ConnectionFactory.createStatement()){
+        try (Statement statement = ConnectionFactory.createStatement()) {
             statement.addBatch(playersTableSql());
             statement.addBatch(teamsTableSql());
             statement.executeBatch();
@@ -41,7 +46,7 @@ public class DataBaseBuilder {
 
     private String teamsTableSql() {
         return """
-                CREATE TABLE team IF NOT EXISTS(
+                CREATE TABLE team(
                     id INT NOT NULL,
                     name TEXT NOT NULL,
                     coachName TEXT,
@@ -50,9 +55,9 @@ public class DataBaseBuilder {
                 """;
     }
 
-    private String playersTableSql(){
+    private String playersTableSql() {
         return """
-                CREATE TABLE player IF NOT EXISTS(
+                CREATE TABLE player(
                     uuid UUID NOT NULL,
                     team_id INTEGER,
                     name TEXT NOT NULL,
@@ -60,9 +65,21 @@ public class DataBaseBuilder {
                     position TEXT,
                     isFielded BOOLEAN,
                     CONSTRAINT player_uuid_pk PRIMARY KEY(uuid),
-                    CONSTRAINT player_team_id_fk FOREING KEY (team_id)
+                    CONSTRAINT player_team_id_fk FOREIGN KEY (team_id)
                             REFERENCES team(id),
                     CONSTRAINT player_number_uk UNIQUE(number)
+                );
+                """;
+    }
+
+    private String teamPlayersTableSql(){
+        return """
+                CREATE TABLE team_player(
+                    player_uuid UUID,
+                    team_id INTEGER,
+                    CONSTRAINT team_player_pk PRIMARY KEY (player_uuid,team_id),
+                    CONSTRAINT player_uuid_fk FOREIGN KEY player_uuid REFERENCES player(uuid),
+                    CONSTRAINT team_id_fk FOREIGN KEY team_id REFERENCES team(id)
                 );
                 """;
     }
