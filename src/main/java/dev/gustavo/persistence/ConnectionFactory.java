@@ -14,7 +14,7 @@ public class ConnectionFactory {
 
     public static PreparedStatement createPrepareStatement(String sql){
         try {
-            createConnection().prepareStatement(sql);
+            preparedStatement = createConnection().prepareStatement(sql);
         }catch (SQLException e){
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -24,7 +24,7 @@ public class ConnectionFactory {
 
     public static Statement createStatement(){
         try {
-            createConnection().createStatement();
+            statement = createConnection().createStatement();
         }catch (SQLException e){
             System.err.println(e.getMessage());
             e.printStackTrace();

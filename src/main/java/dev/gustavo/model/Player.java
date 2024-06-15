@@ -7,17 +7,19 @@ import java.util.UUID;
 
 public class Player {
     private final UUID uuid;
+    private Team team;
     private String name;
     private int number;
     private String position;
     private boolean isFielded;
 
-    public Player(String name, int number, String position) {
-        this(UUID.randomUUID(),name,number,position,false);
+    public Player(Team team,String name, int number, String position) {
+        this(UUID.randomUUID(),team,name,number,position,false);
     }
 
-    public Player(UUID uuid, String name, int number, String position, boolean isFielded) {
+    public Player(UUID uuid,Team team, String name, int number, String position, boolean isFielded) {
         this.uuid = uuid;
+        this.team = team;
         this.name = name;
         this.number = number;
         this.position = position;
@@ -25,15 +27,23 @@ public class Player {
     }
 
     public static PlayerDto toDto(Player p) {
-        return new PlayerDto(p.getUuid(),p.getName(),p.getNumber(),p.getPosition(),p.isFielded());
+        return new PlayerDto(p.getUuid(),p.getTeam(),p.getName(),p.getNumber(),p.getPosition(),p.isFielded());
     }
 
     public static Player fromDto(PlayerDto dto){
-        return new Player(dto.uuid(), dto.name(), dto.number(), dto.position(), dto.isFielded());
+        return new Player(dto.uuid(),dto.team(), dto.name(), dto.number(), dto.position(), dto.isFielded());
     }
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public String getName() {
