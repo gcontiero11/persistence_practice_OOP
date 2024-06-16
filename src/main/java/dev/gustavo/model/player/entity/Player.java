@@ -26,14 +26,6 @@ public class Player {
         this.isFielded = isFielded;
     }
 
-    public static PlayerDto toDto(Player p){
-        return new PlayerDto(p.uuid,p.team,p.name,p.number,p.position,p.isFielded);
-    }
-
-    public static Player fromDto(PlayerDto dto){
-        return new Player(dto.uuid(),dto.team(), dto.name(), dto.number(), dto.position(), dto.isFielded());
-    }
-
     public UUID getUuid() {
         return uuid;
     }
@@ -76,5 +68,31 @@ public class Player {
 
     public void setFielded(boolean fielded) {
         isFielded = fielded;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+        return uuid.equals(player.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return uuid.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+               "uuid=" + uuid +
+               ", team=" + team +
+               ", name='" + name + '\'' +
+               ", number=" + number +
+               ", position='" + position + '\'' +
+               ", isFielded=" + isFielded +
+               '}';
     }
 }

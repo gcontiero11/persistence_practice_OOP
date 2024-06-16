@@ -5,7 +5,7 @@ import dev.gustavo.model.team.entity.Team;
 import java.util.Objects;
 import java.util.UUID;
 
-public record PlayerDto(UUID uuid, Team team, String name, int number, String position, boolean isFielded) {
+public record PlayerDto(UUID uuid, int teamId, String name, int number, String position, boolean isFielded) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -2,11 +2,11 @@ package dev.gustavo.persistence.dao;
 
 import dev.gustavo.model.team.dto.TeamDto;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TeamDao {
-    List<TeamDto> findAll();
+    Set<TeamDto> findAll();
 
     Optional<TeamDto> findById(int id);
 
@@ -15,5 +15,6 @@ public interface TeamDao {
     void update(TeamDto dto);
 
     void delete(TeamDto dto);
+
 
 }

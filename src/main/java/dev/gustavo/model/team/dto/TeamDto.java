@@ -1,8 +1,8 @@
 package dev.gustavo.model.team.dto;
 
-import dev.gustavo.model.player.entity.Player;
+import java.util.UUID;
 
-public record TeamDto(int id, String name, String baseLocation, Player captain, String coachName) {
+public record TeamDto(int id, String name, String baseLocation, UUID captainId, String coachName) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

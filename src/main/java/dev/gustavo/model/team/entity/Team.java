@@ -1,15 +1,8 @@
 package dev.gustavo.model.team.entity;
 
-import dev.gustavo.model.player.dto.PlayerDto;
 import dev.gustavo.model.player.entity.Player;
-import dev.gustavo.model.player.services.GetPlayersService;
-import dev.gustavo.model.player.services.UpdatePlayerService;
-import dev.gustavo.model.team.dto.TeamDto;
-import dev.gustavo.persistence.dao.PlayerDao;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Team {
@@ -18,61 +11,54 @@ public class Team {
     private String baseLocation;
     private Player captain;
     private String coachName;
-//    private final Map<UUID,Player> players = new HashMap<>();
+    private final Map<UUID, Player> players;
 
     public Team(int id, String name, String baseLocation, Player captain, String coachName) {
+        this(id, name, baseLocation, captain, coachName, new HashMap<>());
+    }
+
+    public Team(int id, String name, String baseLocation, Player captain, String coachName, Map<UUID, Player> players) {
         this.id = id;
         this.name = name;
         this.baseLocation = baseLocation;
         this.captain = captain;
         this.coachName = coachName;
+        this.players = players;
     }
 
-    public void addPlayer(Player player, PlayerDao playerDao) {
+    public void addPlayer(Player player) {
         player.setTeam(this);
-
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
-        updatePlayerService.update(Player.toDto(player));
+        players.put(player.getUuid(), player);
     }
 
-    public void removePlayer(Player player,PlayerDao playerDao) {
+    public void removePlayer(Player player) {
         player.setTeam(null);
-
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
-        updatePlayerService.update(Player.toDto(player));
+        players.remove(player.getUuid());
     }
 
-    public void substitute(Player substitute, Player beginner, PlayerDao playerDao) {
+    public void substitute(Player substitute, Player beginner) {
+        if (substitute.isFielded() || !beginner.isFielded())
+            throw new IllegalStateException("player out of their correct position");
+
         substitute.setFielded(true);
         beginner.setFielded(false);
 
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
-        updatePlayerService.update(Player.toDto(substitute));
-        updatePlayerService.update(Player.toDto(beginner));
+        players.replace(substitute.getUuid(), substitute);
+        players.replace(beginner.getUuid(), beginner);
     }
 
-    public Set<Player> getFieldedPlayers(PlayerDao playerDao) {
-         return getPlayers(playerDao).stream().filter(Player::isFielded).collect(Collectors.toSet());
+    public Set<Player> getFieldedPlayers() {
+        return players.values().stream()
+                .filter(Player::isFielded)
+                .collect(Collectors.toSet());
     }
 
-    public Set<Player> getOutFieldedPlayers(PlayerDao playerDao) {
-         return getPlayers(playerDao).stream().filter(p -> !p.isFielded()).collect(Collectors.toSet());
+    public Set<Player> getOutFieldedPlayers() {
+        return players.values().stream()
+                .filter(p -> !p.isFielded())
+                .collect(Collectors.toSet());
     }
 
-    private Set<Player> getPlayers(PlayerDao playerDao) {
-        GetPlayersService getService = new GetPlayersService(playerDao);
-        List<PlayerDto> players = getService.getAll();
-
-        return new HashSet<>(players.stream().map(Player::fromDto).toList());
-    }
-
-    public static TeamDto toDto(Team t) {
-        return new TeamDto(t.id, t.name, t.baseLocation, t.captain, t.coachName);
-    }
-
-    public static Team fromDto(TeamDto dto) {
-        return new Team(dto.id(), dto.name(), dto.baseLocation(), dto.captain(), dto.coachName());
-    }
 
     public int getId() {
         return id;
@@ -109,5 +95,21 @@ public class Team {
 
     public void setCoachName(String coachName) {
         this.coachName = coachName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Team team = (Team) o;
+        return id == team.id && Objects.equals(name, team.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + Objects.hashCode(name);
+        return result;
     }
 }
