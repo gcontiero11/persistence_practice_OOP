@@ -31,36 +31,36 @@ public class Team {
     public void addPlayer(Player player, PlayerDao playerDao) {
         player.setTeam(this);
 
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService();
+        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
         updatePlayerService.update(Player.toDto(player));
     }
 
     public void removePlayer(Player player,PlayerDao playerDao) {
         player.setTeam(null);
 
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService();
+        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
         updatePlayerService.update(Player.toDto(player));
     }
 
-    public void substitute(Player substitute, Player beginner) {
+    public void substitute(Player substitute, Player beginner, PlayerDao playerDao) {
         substitute.setFielded(true);
         beginner.setFielded(false);
 
-        UpdatePlayerService updatePlayerService = new UpdatePlayerService();
+        UpdatePlayerService updatePlayerService = new UpdatePlayerService(playerDao);
         updatePlayerService.update(Player.toDto(substitute));
         updatePlayerService.update(Player.toDto(beginner));
     }
 
-    public Set<Player> getFieldedPlayers() {
-         return getPlayers().stream().filter(Player::isFielded).collect(Collectors.toSet());
+    public Set<Player> getFieldedPlayers(PlayerDao playerDao) {
+         return getPlayers(playerDao).stream().filter(Player::isFielded).collect(Collectors.toSet());
     }
 
-    public Set<Player> getOutFieldedPlayers() {
-         return getPlayers().stream().filter(p -> !p.isFielded()).collect(Collectors.toSet());
+    public Set<Player> getOutFieldedPlayers(PlayerDao playerDao) {
+         return getPlayers(playerDao).stream().filter(p -> !p.isFielded()).collect(Collectors.toSet());
     }
 
-    private Set<Player> getPlayers() {
-        GetPlayersService getService = new GetPlayersService();
+    private Set<Player> getPlayers(PlayerDao playerDao) {
+        GetPlayersService getService = new GetPlayersService(playerDao);
         List<PlayerDto> players = getService.getAll();
 
         return new HashSet<>(players.stream().map(Player::fromDto).toList());

@@ -3,7 +3,6 @@ package dev.gustavo.model.player.services;
 import dev.gustavo.model.player.dto.PlayerDto;
 import dev.gustavo.model.player.entity.Player;
 import dev.gustavo.persistence.dao.PlayerDao;
-import dev.gustavo.persistence.daoImpl.PlayerDaoImpl;
 
 import java.util.List;
 import java.util.Optional;

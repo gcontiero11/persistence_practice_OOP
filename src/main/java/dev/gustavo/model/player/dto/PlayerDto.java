@@ -2,10 +2,21 @@ package dev.gustavo.model.player.dto;
 
 import dev.gustavo.model.team.entity.Team;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public record PlayerDto(UUID uuid, Team team, String name, int number, String position, boolean isFielded) {
-    public PlayerDto(String name, int number, String position) {
-        this(UUID.randomUUID(), null, name, number, position, false);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlayerDto playerDto = (PlayerDto) o;
+        return Objects.equals(uuid, playerDto.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uuid);
     }
 }
