@@ -6,7 +6,7 @@ import dev.gustavo.persistence.dao.PlayerDao;
 import dev.gustavo.persistence.dao.TeamDao;
 import dev.gustavo.utils.Converter;
 
-public class BrasileiraoController {
+public class BrasileiraoController implements SoccerLeagueController {
     PlayerDao playerDao;
     TeamDao teamDao;
 
