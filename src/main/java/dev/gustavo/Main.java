@@ -59,5 +59,7 @@ public class Main {
         controller.getOutFieldedPlayerOfTeam(corinthians);
         controller.setTeamCaptain(rodrigoGarro,corinthians);
         System.out.println(corinthians);
+        controller.deletePlayer(rodrigoGarro);
+        System.out.println(corinthians);
     }
 }

@@ -30,7 +30,9 @@ public class BrasileiraoController implements SoccerLeagueController {
     }
 
     public void deletePlayer(Player p){
-        p.getTeam().removePlayer(p);
+        Team t = p.getTeam();
+        if (p.equals(t.getCaptain())) t.setCaptain(null);
+        t.removePlayer(p);
         playerDao.delete(Converter.playerToDto(p));
     }
 
