@@ -53,5 +53,7 @@ public class Main {
         scan.nextLine();
 
         controller.getOutFieldedPlayerOfTeam(corinthians);
+        controller.deletePlayer(yuriAlberto);
+        controller.getOutFieldedPlayerOfTeam(corinthians);
     }
 }
