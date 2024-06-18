@@ -42,11 +42,13 @@ public class Main {
         scan.nextLine();
 
         controller.addPlayerToTeam(yuriAlberto,corinthians);
+        System.out.println(corinthians);
         controller.setPlayerIntoField(yuriAlberto);
 
         scan.nextLine();
 
         controller.addPlayerToTeam(rodrigoGarro,corinthians);
+        System.out.println(corinthians);
         controller.getFieldPlayersOfTeam(corinthians);
         controller.substitution(rodrigoGarro,yuriAlberto,corinthians);
 
@@ -55,5 +57,7 @@ public class Main {
         controller.getOutFieldedPlayerOfTeam(corinthians);
         controller.deletePlayer(yuriAlberto);
         controller.getOutFieldedPlayerOfTeam(corinthians);
+        controller.setTeamCaptain(rodrigoGarro,corinthians);
+        System.out.println(corinthians);
     }
 }

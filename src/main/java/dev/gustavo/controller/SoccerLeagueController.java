@@ -13,4 +13,5 @@ public interface SoccerLeagueController {
     void getOutFieldedPlayerOfTeam(Team t);
     void setPlayerIntoField(Player p);
     void setPlayerOutOfField(Player p);
+    void setTeamCaptain(Player p,Team t);
 }

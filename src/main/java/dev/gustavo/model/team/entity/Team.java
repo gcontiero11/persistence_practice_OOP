@@ -112,4 +112,27 @@ public class Team {
         result = 31 * result + Objects.hashCode(name);
         return result;
     }
+
+    @Override
+    public String toString() {
+        if (captain != null){
+            return "Team{" +
+                   "id=" + id +
+                   ", name='" + name + '\'' +
+                   ", baseLocation='" + baseLocation + '\'' +
+                   ", captain=" + captain.getName() +
+                   ", coachName='" + coachName + '\'' +
+                   ", players=" + players.values().stream().map(Player::getName).toList() +
+                   '}';
+        }
+        return "Team{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", baseLocation='" + baseLocation + '\'' +
+               ", captain= " +
+               ", coachName='" + coachName + '\'' +
+               ", players=" + players.values().stream().map(Player::getName).toList() +
+               '}';
+
+    }
 }

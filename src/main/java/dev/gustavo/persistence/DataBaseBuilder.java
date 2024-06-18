@@ -77,16 +77,4 @@ public class DataBaseBuilder {
                 );
                 """;
     }
-
-    private String teamPlayersTableSql() {
-        return """
-                CREATE TABLE team_player(
-                    player_uuid UUID,
-                    team_id INTEGER,
-                    CONSTRAINT team_player_pk PRIMARY KEY (player_uuid,team_id),
-                    CONSTRAINT player_uuid_fk FOREIGN KEY player_uuid REFERENCES player(uuid),
-                    CONSTRAINT team_id_fk FOREIGN KEY team_id REFERENCES team(id)
-                );
-                """;
-    }
 }

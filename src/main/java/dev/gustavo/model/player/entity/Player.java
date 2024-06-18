@@ -88,7 +88,7 @@ public class Player {
     public String toString() {
         return "Player{" +
                "uuid=" + uuid +
-               ", team=" + team +
+               ", team=" + team.getName() +
                ", name='" + name + '\'' +
                ", number=" + number +
                ", position='" + position + '\'' +

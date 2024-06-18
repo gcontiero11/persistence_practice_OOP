@@ -58,4 +58,10 @@ public class BrasileiraoController implements SoccerLeagueController {
         p.setFielded(false);
         playerDao.update(Converter.playerToDto(p));
     }
+
+    @Override
+    public void setTeamCaptain(Player p, Team t) {
+        t.setCaptain(p);
+        teamDao.update(Converter.teamToDto(t));
+    }
 }
